@@ -1,99 +1,153 @@
-
             
                   
-  <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.itcuties.services.clients</groupId>
-  <artifactId>HighScoresServiceClient</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  
-  <build>
-  	
-    <resources>
-		<resource>
-			<directory>src/main/resources</directory>
-		</resource>
-		<resource>
-			<directory>target/generated-sources/axis2/wsdl2code/resources</directory>
-		</resource>
-	</resources>
-  	
-  	<plugins>
-  		<plugin>
-			<groupId>org.apache.axis2</groupId>
-			<artifactId>axis2-wsdl2code-maven-plugin</artifactId>
-			<version>1.6.2</version>
-			<executions>
-				<execution>
-					<goals>
-						<goal>wsdl2code</goal>
-					</goals>
-					<configuration>
-						<unpackClasses>true</unpackClasses>
-						<databindingName>xmlbeans</databindingName>
-						<packageName>com.itcuties.ws</packageName>
-						<wsdlFile>src/main/resources/wsdl/HighScoreService.wsdl</wsdlFile>
-						<syncMode>sync</syncMode>															
-					</configuration>
-				</execution>
-			</executions>
-		</plugin>
-  	</plugins>
-  </build>
-  
-  <dependencies>
-	<dependency>
-		<groupId>org.apache.axis2</groupId>
-		<artifactId>axis2</artifactId>
-		<version>1.6.2</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.xmlbeans</groupId>
-		<artifactId>xmlbeans</artifactId>
-		<version>2.5.0</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.ws.commons.axiom</groupId>
-		<artifactId>axiom-api</artifactId>
-		<version>1.2.13</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.ws.commons.axiom</groupId>
-		<artifactId>axiom-impl</artifactId>
-		<version>1.2.13</version>
-	</dependency>
-	<dependency>
-		<groupId>wsdl4j</groupId>
-		<artifactId>wsdl4j</artifactId>
-		<version>1.6.2</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.neethi</groupId>
-		<artifactId>neethi</artifactId>
-		<version>3.0.2</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.axis2</groupId>
-		<artifactId>axis2-transport-local</artifactId>
-		<version>1.6.1</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.axis2</groupId>
-		<artifactId>axis2-transport-http</artifactId>
-		<version>1.6.1</version>
-	</dependency>
-	<dependency>
-		<groupId>org.apache.ws.commons.schema</groupId>
-		<artifactId>XmlSchema</artifactId>
-		<version>1.4.7</version>
-	</dependency>
-	<dependency>
-		<groupId>junit</groupId>
-		<artifactId>junit</artifactId>
-		<version>4.10</version>
-	</dependency>
-  </dependencies>
-  
-</project> 
-            
-                
+  <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<parent>
+<groupId>com.acme.shoppingcart</groupId>
+<artifactId>shopping-cart-bps-parent</artifactId>
+<version>2.0.0-SNAPSHOT</version>
+</parent>
+<modelVersion>4.0.0</modelVersion>
+<artifactId>com.acme.shoppingcart.service.supplier</artifactId>
+<packaging>aar</packaging>
+<name>Shopping cart - Supplier Service</name>
+<description>Supplier Service</description>
+<url>http://www.wso2.org</url>
+<build>
+<sourceDirectory>src</sourceDirectory>
+<testSourceDirectory>test</testSourceDirectory>
+<resources>
+<resource>
+<directory>resources</directory>
+</resource>
+</resources>
+<defaultGoal>install</defaultGoal>
+<plugins>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-compiler-plugin</artifactId>
+<version>2.0</version>
+<configuration>
+<source>1.5</source>
+<target>1.5</target>
+</configuration>
+</plugin>
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-surefire-plugin</artifactId>
+<version>2.2</version>
+</plugin>
+<plugin>
+<groupId>org.apache.axis2</groupId>
+<artifactId>axis2-aar-maven-plugin</artifactId>
+<version>${axis2.aar.maven.plugin.version}</version>
+<extensions>true</extensions>
+<configuration>
+<servicesXmlFile>${basedir}/resources/META-INF/services.xml</servicesXmlFile>
+<includeDependencies>false</includeDependencies>
+<fileSets>
+<fileSet>
+<directory>${basedir}/resources/META-INF</directory>
+<outputDirectory>META-INF/</outputDirectory>
+<includes>
+<include>**/*.xsd</include>
+</includes>
+<excludes>
+<exclude>**/*.wsdl</exclude>
+<exclude>**/*.xml</exclude>
+</excludes>
+</fileSet>
+</fileSets>
+</configuration>
+</plugin>
+</plugins>
+</build>
+<dependencies>
+<dependency>
+<groupId>org.apache.abdera.wso2</groupId>
+<artifactId>abdera</artifactId>
+<version>${abdera.wso2.version}</version>
+</dependency>
+<dependency>
+<groupId>org.apache.ws.commons.axiom.wso2</groupId>
+<artifactId>axiom</artifactId>
+<version>${axiom.wso2.version}</version>
+</dependency>
+<dependency>
+<groupId>org.apache.axis2.wso2</groupId>
+<artifactId>axis2-client</artifactId>
+<version>${axis2.client.version}</version>
+</dependency>
+</dependencies>
+<repositories>
+<repository>
+<id>wso2-nexus</id>
+<name>WSO2 internal Repository</name>
+<url>
+http://192.168.101.55:8081/nexus/content/repositories/releases/
+</url>
+<releases>
+<enabled>true</enabled>
+<updatePolicy>daily</updatePolicy>
+<checksumPolicy>fail</checksumPolicy>
+</releases>
+</repository>
+<!--
+moved to nexus
+
+        <repository>
+            <id>maven-snapshots</id>
+            <name>Maven Central Development Repository</name>
+            <url>http://snapshots.maven.codehaus.org/maven2</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>m2-snapshot-repository</id>
+            <url>http://people.apache.org/repo/m2-snapshot-repository</url>
+            <releases>
+                <enabled>false</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>ws-zones-repository</id>
+            <url>http://ws.zones.apache.org/repository2</url>
+        </repository>
+        <repository>
+            <id>wso2-maven2-repository</id>
+            <url>http://dist.wso2.org/maven2</url>
+        </repository>
+
+        
+-->
+</repositories>
+<pluginRepositories>
+<pluginRepository>
+<id>snapshot-apache</id>
+<name>Apache Snapshot repository</name>
+<url>
+http://people.apache.org/repo/m2-snapshot-repository
+</url>
+<snapshots>
+<enabled>true</enabled>
+</snapshots>
+<releases>
+<enabled>false</enabled>
+</releases>
+</pluginRepository>
+<pluginRepository>
+<id>snapshot</id>
+<name>Snapshot repository</name>
+<url>http://snapshots.maven.codehaus.org/maven2</url>
+<snapshots>
+<enabled>true</enabled>
+</snapshots>
+<releases>
+<enabled>false</enabled>
+</releases>
+</pluginRepository>
+</pluginRepositories>
+</project>
